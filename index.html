@@ -479,6 +479,154 @@
       letter-spacing: 0.5px;
     }
 
+    /* ===== WORKS OVERLAY ===== */
+    .works-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 90;
+      background: rgba(8, 8, 8, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    .works-overlay.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .works-close {
+      position: absolute;
+      top: 24px;
+      right: 32px;
+      background: rgba(255, 255, 255, 0.06);
+      border: none;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 18px;
+      cursor: pointer;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .works-close:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .works-content {
+      text-align: center;
+      max-width: 900px;
+      width: 90%;
+    }
+
+    .works-heading {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--brand-light);
+      margin-bottom: 40px;
+    }
+
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .works-card {
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      padding: 36px 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.02);
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: worksCardIn 0.5s ease forwards;
+    }
+
+    .works-overlay.visible .works-card:nth-child(1) { animation-delay: 0.05s; }
+    .works-overlay.visible .works-card:nth-child(2) { animation-delay: 0.12s; }
+    .works-overlay.visible .works-card:nth-child(3) { animation-delay: 0.19s; }
+    .works-overlay.visible .works-card:nth-child(4) { animation-delay: 0.26s; }
+
+    @keyframes worksCardIn {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .works-card:hover {
+      border-color: rgba(122, 26, 46, 0.4);
+      background: rgba(122, 26, 46, 0.08);
+      transform: translateY(-4px);
+    }
+
+    .works-card-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
+    }
+
+    .works-card:hover .works-card-icon {
+      background: rgba(122, 26, 46, 0.15);
+    }
+
+    .works-card-icon svg {
+      width: 26px;
+      height: 26px;
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.45);
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke 0.3s;
+    }
+
+    .works-card:hover .works-card-icon svg {
+      stroke: var(--brand-light);
+    }
+
+    .works-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.85);
+      letter-spacing: 0.5px;
+    }
+
+    .works-card-count {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.25);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
       .header {
@@ -541,6 +689,34 @@
         width: 34px;
         height: 34px;
         font-size: 18px;
+      }
+
+      .works-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+
+      .works-card {
+        padding: 24px 16px;
+      }
+
+      .works-card-icon {
+        width: 44px;
+        height: 44px;
+      }
+
+      .works-card-icon svg {
+        width: 22px;
+        height: 22px;
+      }
+
+      .works-card-title {
+        font-size: 12px;
+      }
+
+      .works-close {
+        top: 16px;
+        right: 20px;
       }
 
       .contact-card-header {
@@ -657,6 +833,44 @@
       <!-- Segments injected by JS -->
     </div>
     <button class="contact-btn" id="contactBtn">Contact</button>
+  </div>
+
+  <!-- Works Overlay -->
+  <div class="works-overlay" id="worksOverlay">
+    <button class="works-close" id="worksClose">&times;</button>
+    <div class="works-content">
+      <div class="works-heading">Our Works</div>
+      <div class="works-grid">
+        <div class="works-card" data-category="architecture">
+          <div class="works-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/><path d="M10 9h4"/></svg>
+          </div>
+          <div class="works-card-title">Architecture</div>
+          <div class="works-card-count">Projects</div>
+        </div>
+        <div class="works-card" data-category="interior">
+          <div class="works-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 20h16"/><path d="M4 20V10l2-2h12l2 2v10"/><rect x="8" y="14" width="8" height="6"/><path d="M2 20h20"/><path d="M6 10V6h12v4"/></svg>
+          </div>
+          <div class="works-card-title">Interior</div>
+          <div class="works-card-count">Projects</div>
+        </div>
+        <div class="works-card" data-category="furniture">
+          <div class="works-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M5 12a2 2 0 01-2-2V8a4 4 0 014-4h10a4 4 0 014 4v2a2 2 0 01-2 2"/><path d="M5 12v6a2 2 0 002 2h10a2 2 0 002-2v-6"/><path d="M7 20v2"/><path d="M17 20v2"/></svg>
+          </div>
+          <div class="works-card-title">Furniture</div>
+          <div class="works-card-count">Projects</div>
+        </div>
+        <div class="works-card" data-category="competition">
+          <div class="works-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 010-5H6"/><path d="M18 9h1.5a2.5 2.5 0 000-5H18"/><path d="M4 22h16"/><path d="M10 22V14a2 2 0 00-4 0"/><path d="M14 22V14a2 2 0 014 0"/><path d="M6 2h12v7a6 6 0 01-12 0V2z"/></svg>
+          </div>
+          <div class="works-card-title">Competition</div>
+          <div class="works-card-count">Projects</div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Contact Overlay -->
@@ -865,6 +1079,7 @@
         pauseSlideshow();
       } else if (e.key === 'Escape') {
         closeContact();
+        worksOverlay.classList.remove('visible');
       }
     });
 
@@ -884,6 +1099,22 @@
     slideshow.addEventListener('mouseleave', () => {
       isPaused = false;
       if (resumeTimer) clearTimeout(resumeTimer);
+    });
+
+    // Works overlay
+    const worksOverlay = document.getElementById('worksOverlay');
+
+    document.querySelector('[data-section="works"]').addEventListener('click', (e) => {
+      e.preventDefault();
+      worksOverlay.classList.add('visible');
+    });
+
+    document.getElementById('worksClose').addEventListener('click', () => {
+      worksOverlay.classList.remove('visible');
+    });
+
+    worksOverlay.addEventListener('click', (e) => {
+      if (e.target === worksOverlay) worksOverlay.classList.remove('visible');
     });
 
     // Contact overlay
